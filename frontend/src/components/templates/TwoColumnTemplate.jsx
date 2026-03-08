@@ -2,7 +2,7 @@ import React from "react";
 
 export default function TwoColumnTemplate({ data }) {
   return (
-    <div className="w-[794px] min-h-[1123px] bg-white shadow-xl flex font-sans">
+    <div className=" flex p-10 font-sans">
 
       {/* LEFT SIDEBAR */}
       <div className="w-1/3 bg-neutral-100 p-6">

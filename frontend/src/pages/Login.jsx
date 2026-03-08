@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 
-const from = location.state?.from?.pathname || "/dashboard";
+
 
 const Login = () => {
   const {
@@ -16,6 +16,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/dashboard";
+
   
   // ✅ Get login function from useAuth
   const { login } = useAuth();
@@ -31,7 +34,7 @@ const Login = () => {
       const result = await login(data.email, data.password);
       
       if (result.success) {
-        navigate(from, { replace: true });
+        navigate("/dashboard");
       } else {
         setApiError(result.error || 'Login failed. Please check your credentials.');
       }

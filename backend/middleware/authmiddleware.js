@@ -1,25 +1,39 @@
-// middleware/authMiddleware.js
-const jwt = require('jsonwebtoken');
+import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || 'replace_this_secret';
-const TOKEN_NAME = 'resumeapt_token';
+
+const JWT_SECRET = process.env.JWT_SECRET;
+
+
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined in environment variables");
+}
+const TOKEN_NAME = "resumeapt_token";
 
 const verifyToken = (req, res, next) => {
   try {
-    // ✅ Read token from cookie (not Authorization header)
-    const token = req.cookies[TOKEN_NAME];
-    
+
+    const token =
+      req.cookies[TOKEN_NAME] ||
+      req.headers.authorization?.split(" ")[1];
+
     if (!token) {
-      return res.status(401).json({ message: 'Access Denied. No token provided.' });
+      return res.status(401).json({ message: "Access Denied. No token provided." });
     }
 
-    const verified = jwt.verify(token, JWT_SECRET);
-    req.user = verified;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = decoded;
+
     next();
+
   } catch (err) {
-    console.error('Token verification failed:', err.message);
-    res.status(401).json({ message: 'Invalid Token' });
+
+    console.error("Token verification failed:", err.message);
+
+    res.status(401).json({ message: "Invalid Token" });
+
   }
 };
 
-module.exports = verifyToken;
+export default verifyToken;

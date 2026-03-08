@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const builderResumeSchema = new mongoose.Schema(
   {
@@ -6,14 +6,15 @@ const builderResumeSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+      index: true
     },
 
     resumeData: {
-      type: Object, // stores full JSON from frontend
+      type: mongoose.Schema.Types.Mixed, // stores full JSON from frontend
       required: true,
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("BuilderResume", builderResumeSchema);
+export default mongoose.model("BuilderResume", builderResumeSchema);

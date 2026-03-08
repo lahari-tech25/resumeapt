@@ -1,9 +1,9 @@
-const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+import User from "../models/User.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // REGISTER USER
-exports.register = async (req, res) => {
+export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
 };
 
 // LOGIN USER
-exports.login = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -38,9 +38,15 @@ exports.login = async (req, res) => {
     if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+{
+  id: user._id,
+  email: user.email,
+  plan: user.plan
+},
+process.env.JWT_SECRET,
+{ expiresIn: "1h" }
+);
 
     res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
   } catch (error) {
@@ -49,6 +55,6 @@ exports.login = async (req, res) => {
 };
 
 // DASHBOARD (Protected)
-exports.dashboard = (req, res) => {
+export const dashboard = (req, res) => {
   res.json({ message: `Welcome ${req.user.email}!` });
 };

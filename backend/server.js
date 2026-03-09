@@ -1,5 +1,4 @@
 import "./config/env.js";
-
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -14,6 +13,12 @@ import rateLimit from "express-rate-limit";
 import atsRoutes from "./routes/atsRoutes.js";
 import dashboardRoutes from "./routes/dashboard.js";
 import subscriptionRoutes from "./routes/subscriptionRoutes.js";
+import path from "path";
+import { fileURLToPath } from "url";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 
 
@@ -31,7 +36,7 @@ app.use(helmet());
 //  CRITICAL: Apply middleware in correct order
 // 1. CORS first
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN,
+  origin: process.env.NODE_ENV === "production" ? true : process.env.CLIENT_ORIGIN,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -59,6 +64,12 @@ app.use("/api/ats", atsRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/subscription", subscriptionRoutes);
 
+
+// Serve frontend AFTER API routes
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+});
 
 // 5. Error handler last
 app.use(errorHandler);

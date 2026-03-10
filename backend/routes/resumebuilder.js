@@ -1,7 +1,7 @@
 // routes/resumebuilder.js
 import express from "express";
 import BuilderResume from "../models/BuilderResume.js";
-import verifyToken from "../middleware/authMiddleware.js";
+import verifyToken from "../middleware/authmiddleware.js";
 
 const router = express.Router();
 

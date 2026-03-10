@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import Resume from "../models/Resume.js";
-import verifyToken from "../middleware/authMiddleware.js";
+import verifyToken from "../middleware/authmiddleware.js";
 
 import {
   extractResume,

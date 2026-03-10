@@ -5,7 +5,7 @@ import { createRequire } from "module";
 import mammoth from "mammoth";
 
 import ATSScan from "../models/ATSScan.js";
-import verifyToken from "../middleware/authMiddleware.js";
+import verifyToken from "../middleware/authmiddleware.js";
 import { runATS } from "../utils/atsEngine.js";
 
 const require = createRequire(import.meta.url);

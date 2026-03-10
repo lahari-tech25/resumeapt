@@ -2,7 +2,7 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
-import verifyToken from '../middleware/authMiddleware.js';
+import verifyToken from '../middleware/authmiddleware.js';
 import BuilderResume from '../models/BuilderResume.js';
 
 const router = express.Router();

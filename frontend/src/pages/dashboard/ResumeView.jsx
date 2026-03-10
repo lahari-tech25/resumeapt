@@ -8,7 +8,7 @@ import jsPDF from "jspdf";
 import ClassicTemplate from "../../components/templates/ClassicTemplate";
 import ModernTemplate from "../../components/templates/ModernTemplate";
 import TwoColumnTemplate from "../../components/templates/TwoColumnTemplate";
-import A4Page from "../../components/A4page";
+import A4Page from "../../components/A4Page";
 
 const API = import.meta.env.VITE_API_URL; // http://localhost:5000
 

@@ -4,7 +4,7 @@ import TwoColumnTemplate from "../../components/templates/TwoColumnTemplate";
 import ModernTemplate from "../../components/templates/ModernTemplate";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import A4Page from "../../components/A4page";
+import A4Page from "../../components/A4Page";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 

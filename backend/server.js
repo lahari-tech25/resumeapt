@@ -22,10 +22,6 @@ const __dirname = path.dirname(__filename);
 
 
 
-
-
-
-
 connectDB();
 
 const app = express();
@@ -67,16 +63,19 @@ app.use("/api/subscription", subscriptionRoutes);
 
 // Serve frontend AFTER API routes
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
-app.get("*", (req, res) => {
+
+app.get("/", (req, res) => {
+  res.send("ResumeApt Backend Running!");
+});
+
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 
 // 5. Error handler last
 app.use(errorHandler);
 
-app.get('/', (req, res) => {
-  res.send('ResumeApt Backend Running!');
-});
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(` Server running on port ${PORT}`));

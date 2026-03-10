@@ -1,6 +1,8 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
+
 axios.defaults.withCredentials = true;
 
 export const AuthContext = createContext();
@@ -20,35 +22,30 @@ export const AuthProvider = ({ children }) => {
 
   // CHECK AUTH WHEN APP LOADS
   const checkAuth = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-    try {
-
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-
-     const response = await axios.get("/api/auth/me", {
-  withCredentials: true,
-});
-
-      setUser(response.data.user);
-
-    } catch (error) {
-
-      console.error("Auth check failed:", error.response?.data);
+    if (!token) {
       setUser(null);
-
-    } finally {
-
       setLoading(false);
-
+      return;
     }
 
-  };
+    const response = await axios.get(`${API}/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setUser(response.data.user);
+
+  } catch (error) {
+    console.error("Auth check failed:", error.response?.data);
+    setUser(null);
+  } finally {
+    setLoading(false);
+  }
+};
 
 
 
@@ -57,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
 
-      const response = await axios.post("/api/auth/login", {
+      const response = await axios.post(`${API}/auth/login`, {
         email,
         password,
       });
@@ -105,7 +102,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
 
-      const response = await axios.post("/api/auth/register", {
+      const response = await axios.post(`${API}/auth/register`, {
         name,
         email,
         password,

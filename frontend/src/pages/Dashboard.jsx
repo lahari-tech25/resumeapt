@@ -64,7 +64,7 @@ export default function Dashboard() {
 
     fetchData();
 
-  }, [navigate, API]);
+  }, [navigate]);
 
 
 

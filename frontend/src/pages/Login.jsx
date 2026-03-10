@@ -20,7 +20,7 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/dashboard";
 
   
-  // ✅ Get login function from useAuth
+  //  Get login function from useAuth
   const { login } = useAuth();
 
   const successMessage = location.state?.message;

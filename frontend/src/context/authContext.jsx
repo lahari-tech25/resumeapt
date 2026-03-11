@@ -3,7 +3,6 @@ import axios from "axios";
 
 const API = import.meta.env.VITE_API_URL;
 
-axios.defaults.withCredentials = true;
 
 export const AuthContext = createContext();
 
@@ -51,39 +50,35 @@ export const AuthProvider = ({ children }) => {
 
   // LOGIN
   const login = async (email, password) => {
+  try {
 
-    try {
+    const response = await axios.post(`${API}/auth/login`, {
+      email,
+      password,
+    });
 
-      const response = await axios.post(`${API}/auth/login`, {
-        email,
-        password,
-      });
+    const { token, user } = response.data;
 
-      if (response.data && response.data.user) {
-
-        // SAVE TOKEN
-        localStorage.setItem("token", response.data.token);
-
-        setUser(response.data.user);
-
-        return { success: true };
-
-      }
-
+    if (!token) {
       return { success: false, error: "Invalid server response" };
-
-    } catch (error) {
-
-      console.error("Login failed:", error.response?.data);
-
-      return {
-        success: false,
-        error: error.response?.data?.message || "Login failed",
-      };
-
     }
 
-  };
+    localStorage.setItem("token", token);
+    setUser(user);
+
+    return { success: true };
+
+  } catch (error) {
+
+    console.error("Login failed:", error.response?.data);
+
+    return {
+      success: false,
+      error: error.response?.data?.message || "Login failed",
+    };
+
+  }
+};
 
 
 

@@ -27,7 +27,7 @@ connectDB();
 const app = express();
 
 // 1️ Security middleware FIRST
-import helmet from "helmet";
+
 
 app.use(
   helmet({

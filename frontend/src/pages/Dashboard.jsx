@@ -116,7 +116,7 @@ const [loading, setLoading] = useState(true);
 
 
 
-  if (loading) {
+  if (loading || !user) {
   return (
     <div className="flex justify-center items-center min-h-screen">
       Loading...
@@ -146,7 +146,7 @@ const [loading, setLoading] = useState(true);
               onClick={() => setMenuOpen(!menuOpen)}
               className="w-11 h-11 rounded-full bg-blue-600 text-white font-semibold flex items-center justify-center"
             >
-              {user.name?.charAt(0).toUpperCase()}
+              {user?.name?.charAt(0).toUpperCase()}
             </button>
 
             {menuOpen && (
@@ -194,7 +194,7 @@ const [loading, setLoading] = useState(true);
         <div className="mb-12">
 
           <h2 className="text-3xl font-semibold">
-            Welcome back, {user.name}
+            Welcome back, {user?.name}
           </h2>
 
           <p className="text-gray-600 mt-2">

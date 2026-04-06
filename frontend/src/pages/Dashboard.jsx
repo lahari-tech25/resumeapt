@@ -51,7 +51,7 @@ const [loading, setLoading] = useState(true);
 
     setUser(userRes.data);
     setStats(statsRes.data);
-    setHistory(historyRes.data);
+    setHistory(historyRes.data.resumes || []);
 
   } catch (error) {
 

@@ -40,7 +40,14 @@ router.post('/register', async (req, res) => {
 
     setTokenCookie(res, token);
 
-    res.json({ user: { id: user._id, name: user.name, email: user.email } });
+   res.json({
+  token,
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email
+  }
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -65,7 +72,14 @@ router.post('/login', async (req, res) => {
 
     setTokenCookie(res, token);
 
-    res.json({ user: { id: user._id, name: user.name, email: user.email } });
+    res.json({
+  token,
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email
+  }
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

@@ -54,7 +54,7 @@ const aiLimiter = rateLimit({
 app.use("/api/auth", authRoutes);
 app.use("/api/builder-resume", resumeBuilderRoutes);
 app.use("/api/resumes", resumeRoutes);
-app.use("/api", aiLimiter);
+app.use("/api/ai", aiLimiter);
 app.use("/api/ai", aiRoutes);
 app.use("/api/ats", atsRoutes);
 app.use("/api/dashboard", dashboardRoutes);
@@ -68,7 +68,11 @@ app.get("/", (req, res) => {
   res.send("ResumeApt Backend Running!");
 });
 
-app.use((req, res) => {
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({ message: "API route not found" });
+  }
+
   res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
 

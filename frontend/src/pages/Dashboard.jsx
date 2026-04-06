@@ -49,7 +49,7 @@ const [loading, setLoading] = useState(true);
       { headers }
     );
 
-    setUser(userRes.data.user);
+    setUser(userRes.data);
     setStats(statsRes.data);
     setHistory(historyRes.data);
 

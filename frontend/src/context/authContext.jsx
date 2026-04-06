@@ -94,35 +94,35 @@ export const AuthProvider = ({ children }) => {
 
   // REGISTER
   const register = async (name, email, password) => {
+  try {
 
-    try {
+    const response = await axios.post(`${API}/auth/register`, {
+      name,
+      email,
+      password,
+    });
 
-      const response = await axios.post(`${API}/auth/register`, {
-        name,
-        email,
-        password,
-      });
+    const { token, user } = response.data;
 
-      if (response.data) {
+    localStorage.setItem("token", token);
+    setUser(user);
 
-        return { success: true };
+    // ADD THIS
+    await checkAuth();
 
-      }
+    return { success: true };
 
-      return { success: false };
+  } catch (error) {
 
-    } catch (error) {
+    console.error("Registration failed:", error.response?.data);
 
-      console.error("Registration failed:", error.response?.data);
+    return {
+      success: false,
+      error: error.response?.data?.message || "Registration failed",
+    };
 
-      return {
-        success: false,
-        error: error.response?.data?.message || "Registration failed",
-      };
-
-    }
-
-  };
+  }
+};
 
 
 

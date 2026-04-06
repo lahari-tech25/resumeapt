@@ -9,7 +9,7 @@ const ATSHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       const res = await axios.get(
-        `${API}/api/ats/history`,
+        `${API}/ats/history`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

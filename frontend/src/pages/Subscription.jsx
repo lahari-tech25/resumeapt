@@ -16,7 +16,7 @@ export default function Subscription() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        `${API}/api/subscription/upgrade`,
+        `${API}/subscription/upgrade`,
         {},
         {
           headers: {

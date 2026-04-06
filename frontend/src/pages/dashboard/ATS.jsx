@@ -28,7 +28,7 @@ const ATS = () => {
 
     try {
       const res = await axios.post(
-        `${API}/api/ats/scan`,
+        `${API}/ats/scan`,
         formData,
         {
           headers: {

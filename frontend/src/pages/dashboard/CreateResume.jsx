@@ -47,7 +47,7 @@ export default function CreateResume() {
   const fetchResume = async (resumeId) => {
     try {
       const res = await axios.get(
-        `${API}/api/builder-resume/${resumeId}`,
+        `${API}/builder-resume/${resumeId}`,
         { withCredentials: true }
       );
 
@@ -77,7 +77,7 @@ export default function CreateResume() {
         setIsSaving(true);
 
         await axios.post(
-          `${API}/api/builder-resume/save`,
+          `${API}/builder-resume/save`,
           {
             resumeId: id,
             resumeData: formData,
@@ -139,7 +139,7 @@ export default function CreateResume() {
     try {
 
       const response = await axios.post(
-        `${API}/api/builder-resume/save`,
+        `${API}/builder-resume/save`,
         {
           resumeId: id,
           resumeData: formData,

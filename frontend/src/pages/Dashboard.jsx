@@ -37,14 +37,14 @@ export default function Dashboard() {
           Authorization: `Bearer ${token}`,
         };
 
-        const userRes = await axios.get(`${API}/api/auth/me`, { headers });
+        const userRes = await axios.get(`${API}/auth/me`, { headers });
 
-        const statsRes = await axios.get(`${API}/api/dashboard/stats`, {
+        const statsRes = await axios.get(`${API}/dashboard/stats`, {
           headers,
         });
 
         const historyRes = await axios.get(
-          `${API}/api/resumes/my-resumes`,
+          `${API}/resumes/my-resumes`,
           { headers }
         );
 
@@ -86,7 +86,7 @@ export default function Dashboard() {
 
       const token = localStorage.getItem("token");
 
-      await axios.delete(`${API}/api/resumes/${resumeId}`, {
+      await axios.delete(`${API}/resumes/${resumeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

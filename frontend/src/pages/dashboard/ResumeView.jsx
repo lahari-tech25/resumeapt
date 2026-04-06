@@ -28,7 +28,7 @@ const ResumeView = () => {
         if (id) {
           try {
             // Try Builder Resume first
-            const res = await axios.get(`${API}/api/builder-resume/${id}`, {
+            const res = await axios.get(`${API}/builder-resume/${id}`, {
               withCredentials: true,
             });
             if (res.data?.resumeData) {
@@ -41,7 +41,7 @@ const ResumeView = () => {
 
           try {
             // Try AI Resume
-            const res = await axios.get(`${API}/api/resume/${id}`, {
+            const res = await axios.get(`${API}/resume/${id}`, {
               withCredentials: true,
             });
 
@@ -97,7 +97,7 @@ const ResumeView = () => {
 
     try {
       await axios.post(
-        `${API}/api/resume/save`,
+        `${API}/resumes/save`,
         {
           resumeId: resumeIdToUse,
           optimizedResume: resumeData,

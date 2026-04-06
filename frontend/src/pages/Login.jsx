@@ -30,7 +30,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      // ✅ Use login from authContext
+      //  Use login from authContext
       const result = await login(data.email, data.password);
       
       if (result.success) {

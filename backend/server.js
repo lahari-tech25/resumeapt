@@ -34,14 +34,10 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        imgSrc: [
-          "'self'",
-          "data:",
-          "https:",
-          "blob:"
-        ],
+        imgSrc: ["'self'", "data:", "https:", "blob:"],
         scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
         styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+        fontSrc: ["'self'", "https:", "data:"],
       },
     },
   })

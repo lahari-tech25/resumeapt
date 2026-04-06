@@ -68,11 +68,14 @@ const aiLimiter = rateLimit({
 app.use("/api/auth", authRoutes);
 app.use("/api/builder-resume", resumeBuilderRoutes);
 app.use("/api/resumes", resumeRoutes);
-app.use("/api/ai", aiLimiter);
-app.use("/api/ai", aiRoutes);
+app.use("/api/ai", aiLimiter, aiRoutes);
 app.use("/api/ats", atsRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/subscription", subscriptionRoutes);
+
+app.get("/api/test", (req, res) => {
+  res.json({ message: "API working" });
+});
 
 
 // Serve frontend AFTER API routes

@@ -27,7 +27,25 @@ connectDB();
 const app = express();
 
 // 1️ Security middleware FIRST
-app.use(helmet());
+import helmet from "helmet";
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: [
+          "'self'",
+          "data:",
+          "https:",
+          "blob:"
+        ],
+        scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https:"],
+      },
+    },
+  })
+);
 
 //  CRITICAL: Apply middleware in correct order
 // 1. CORS first

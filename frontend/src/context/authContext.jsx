@@ -42,8 +42,11 @@ export const AuthProvider = ({ children }) => {
     console.error("Auth check failed:", error.response?.data);
     setUser(null);
   } finally {
-    setLoading(false);
+    setLoading(false); // THIS IS IMPORTANT
   }
+
+  console.log("Loading:", loading);
+console.log("User:", user);
 };
 
 
@@ -125,12 +128,11 @@ export const AuthProvider = ({ children }) => {
 };
 
 
-
-  useEffect(() => {
-
+useEffect(() => {
+  if (!user) {
     checkAuth();
-
-  }, []);
+  }
+}, []);
 
 
 

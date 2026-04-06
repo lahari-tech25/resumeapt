@@ -10,6 +10,7 @@ export default function Dashboard() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(true);
 
   const [stats, setStats] = useState({
     resumesCreated: 0,
@@ -24,43 +25,45 @@ export default function Dashboard() {
 
     const fetchData = async () => {
 
-      try {
+  try {
 
-        const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-        if (!token) {
-          navigate("/login");
-          return;
-        }
+    if (!token) {
+      navigate("/login");
+      return;
+    }
 
-        const headers = {
-          Authorization: `Bearer ${token}`,
-        };
-
-        const userRes = await axios.get(`${API}/auth/me`, { headers });
-
-        const statsRes = await axios.get(`${API}/dashboard/stats`, {
-          headers,
-        });
-
-        const historyRes = await axios.get(
-          `${API}/resumes/my-resumes`,
-          { headers }
-        );
-
-        setUser(userRes.data.user);
-        setStats(statsRes.data);
-        setHistory(historyRes.data);
-
-      } catch (error) {
-
-        console.error(error);
-        localStorage.removeItem("token");
-        navigate("/login");
-
-      }
-
+    const headers = {
+      Authorization: `Bearer ${token}`,
     };
+
+    const userRes = await axios.get(`${API}/auth/me`, { headers });
+
+    const statsRes = await axios.get(`${API}/dashboard/stats`, {
+      headers,
+    });
+
+    const historyRes = await axios.get(
+      `${API}/resumes/my-resumes`,
+      { headers }
+    );
+
+    setUser(userRes.data.user);
+    setStats(statsRes.data);
+    setHistory(historyRes.data);
+
+  } catch (error) {
+
+    console.error(error);
+    localStorage.removeItem("token");
+    navigate("/login");
+
+  } finally {
+    setLoading(false);
+  }
+
+};
 
     fetchData();
 
@@ -113,13 +116,13 @@ export default function Dashboard() {
 
 
 
-  if (!user) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        Loading...
-      </div>
-    );
-  }
+  if (loading) {
+  return (
+    <div className="flex justify-center items-center min-h-screen">
+      Loading...
+    </div>
+  );
+}
 
 
 
